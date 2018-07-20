@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}User Dashboard - Home{% endblock %}
+{% block content %}
+    <div class="body row">
+        <div class="col-sm-12">
+            <h2 class="section-header">Add a new user
+            <a class="btn-to-right" href="/dashboard"><button class="btn btn-primary">Return to Dashboard</button></a>
+            </h2>
+        </div>
+        <div class="hero-unit col-sm-5">
+            {% if messages %}
+                <div class="alert alert-danger">
+                    <p>WARNING:</p>
+                    {% for message in messages%}
+                        <p>* {{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <form action="/users/new" method="post">
+                {% csrf_token %}
+                <div class="form-group"> 
+                    <label for="regfirstname">First Name</label>                                    
+                    <input type="text" name="firstname" placeholder="First Name" id="regfirstname" class="form-control form-control-lg">
+                </div>
+                <div class="form-group"> 
+                    <label for="reglastname">Last Name</label>    
+                    <input type="text" name="lastname" placeholder="Last Name" id="reglastname" class="form-control form-control-lg">
+                </div>
+                <div class="form-group"> 
+                    <label for="regemail">Email</label>    
+                    <input type="text" name="email" placeholder="Email" id="regemail" class="form-control form-control-lg">
+                </div>
+                <div class="form-group">
+                    <label for="regpassword">Password</label>    
+                    <input type="password" name="password1" placeholder="Input Password" id="regpassword" class="form-control form-control-lg">
+                </div>
+                <div class="form-group">                                
+                    <label for="regconfirmpassword">Confirm Password</label>    
+                    <input type="password" name="password2" placeholder="Confirm Password" id="regconfirmpassword" class="form-control form-control-lg">
+                </div>
+                <div class="row section-btn">
+                    <div class="col-sm-9"></div>
+                    <div class="col-sm-3"><input type="submit" class="btn btn-success" value="Register"></div>
+                </div> 
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

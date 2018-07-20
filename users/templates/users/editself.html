@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}User Dashboard - Home{% endblock %}
+{% block content %}
+    <div class="body row">
+        <div class="col-sm-12">
+            <h2 class="section-header">Edit profile</h2>
+        </div>
+        {% if messages %}
+            <div class="alert alert-danger hero-unit col-sm-12">
+                <p>WARNING:</p>
+                {% for message in messages%}
+                    <p>* {{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div class="hero-unit col-sm-6">
+            <fieldset>
+                <legend>Edit Information</legend>
+                <form action="/users/edit/info" method="post">
+                    {% csrf_token %}
+                    <input hidden name="userid" value="{{userid}}">
+                    <input hidden name="userlevel" value="{{userlevel}}">
+                    <!-- Input Field-->
+                    <div class="form-group"> 
+                        <label for="regemail">Email</label>    
+                        <input type="text" name="email" placeholder="Email" id="regemail" class="form-control form-control-lg" value="{{email}}" disabled>
+                    </div>
+                    <div class="form-group"> 
+                        <label for="regfirstname">First Name</label>                                    
+                        <input type="text" name="firstname" placeholder="First Name" id="regfirstname" class="form-control form-control-lg" value="{{firstname}}">
+                    </div>
+                    <div class="form-group"> 
+                        <label for="reglastname">Last Name</label>    
+                        <input type="text" name="lastname" placeholder="Last Name" id="reglastname" class="form-control form-control-lg" value="{{lastname}}">
+                    </div>
+                    <div class="row section-btn">
+                        <input type="submit" class="btn btn-success btn-to-right" value="Save">
+                    </div> 
+                </form>
+            <fieldset>
+        </div>
+        <div class="hero-unit col-sm-6">
+            <fieldset>
+                <legend>Change Password</legend>
+                <form action="/users/edit/password" method="post">
+                    {% csrf_token %}
+                    <input hidden name="userid" value="{{userid}}">
+                    <div class="form-group">
+                        <label for="regpassword">Password</label>    
+                        <input type="password" name="password1" placeholder="Input Password" id="regpassword" class="form-control form-control-lg">
+                    </div>
+                    <div class="form-group">                                
+                        <label for="regconfirmpassword">Confirm Password</label>    
+                        <input type="password" name="password2" placeholder="Confirm Password" id="regconfirmpassword" class="form-control form-control-lg">
+                    </div>
+                    <div class="row section-btn">
+                        <input type="submit" class="btn btn-success btn-to-right" value="Update Password">
+                    </div> 
+                </form>
+            </fieldset>
+        </div>
+        <div class="hero-unit col-sm-12 bottom-row">
+            <fieldset>
+                <legend>Edit Description</legend>
+                <form action="/users/edit/description" method="post">
+                    {% csrf_token %}
+                    <input hidden name="userid" value="{{userid}}">
+                    <!-- Input Field-->
+                    <div class="form-group">                                
+                        <textarea name="description" placeholder="First Name" id="regfirstname" class="form-control form-control-lg">{{description}}</textarea> 
+                    </div>
+                    <div class="row section-btn">
+                    <input type="submit" class="btn btn-success btn-to-right" value="Save">
+                    </div> 
+                </form>
+            </fieldset>
+        </div>
+    </div>
+{% endblock %}

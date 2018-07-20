@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}{{ user.first_name }}'s Wall{% endblock %}
+{% block content %}
+    <div class="body row">
+        <div class="hero-unit col-sm-12"><!-- USER INFO -->
+            <h3 class="section-header col-sm-12">{{ user.first_name }} {{ user.last_name }}</h3>
+            <div class="col-sm-2">Registered at:</div>
+            <div class="col-sm-10">{{ user.created_at}}</div>
+            <div class="col-sm-2">User ID:</div>
+            <div class="col-sm-10">#{{ user.id}}</div>
+            <div class="col-sm-2">Email address:</div>
+            <div class="col-sm-10">{{ user.email}}</div>
+            <div class="col-sm-2">Description:</div>
+            <div class="col-sm-10">{{ user.description}}</div>
+        </div>
+        <div class="hero-unit col-sm-12 space-above"><!-- LEAVE A MESSAGE -->
+            <fieldset>
+                <form action="/users/show/{{user.id}}" method="post">
+                    {% csrf_token %}
+                    <!-- HIDDEN FIELD: MESSAGE OR COMMENT -->
+                    <input hidden name="morc" value="message"> 
+                    <!-- MESSAGE -->  
+                    <div class="form-group">               
+                        <textarea name="message" placeholder="Leave a message for {{ user.first_name }} {{ user.last_name }}" class="form-control form-control-lg message"></textarea> 
+                    </div>
+                    <!-- POST BUTTON --> 
+                    <div class="row section-btn">
+                    <input type="submit" class="btn btn-success btn-to-right" value="Leave a message!">
+                    </div> 
+                </form>
+            </fieldset>
+        </div>
+        {% for msg in allMessages%} <!-- ALL PREVIOUSLY POSTED MESSAGES -->
+        <div class="hero-unit col-sm-12 space-above">
+            <fieldset>
+                <legend>
+                    {{msg.user_from.first_name}} {{msg.user_from.last_name}} wrote:
+                    <h5 class="btn-to-right">{{msg.user_from.created_at}}</h5>
+                </legend>
+                <div class="row">
+                    <div class="col-sm-12 message">{{msg.message}}</div>
+                </div>
+                {% for cmt in msg.comment_set.all|dictsortreversed:"created_at" %}
+                    <div class="row space-above">
+                        <div class="col-sm-1">
+                        </div>
+                        <div class="col-sm-11">
+                            <fieldset>
+                                <legend>
+                                    {{cmt.user.first_name}} {{cmt.user.last_name}} wrote:
+                                    <h5 class="btn-to-right">{{cmt.created_at}}</h5>
+                                </legend>
+                                <div class="comment">{{cmt.comment}}</div>
+                            </fieldset>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="row space-above">
+                    <div class="col-sm-1">
+                    </div>
+                    <div class="col-sm-11">
+                        <fieldset>
+                            <form action="/users/show/{{user.id}}" method="post">
+                                {% csrf_token %}
+                                <!-- Input Field-->
+                                <div class="form-group">
+                                    <input hidden name="morc" value="comment">  
+                                    <input hidden name="message_id" value="{{msg.id}}">         
+                                    <textarea name="comment" placeholder="Write a comment for above message" class="form-control form-control-lg comment"></textarea> 
+                                </div>
+                                <div class="row section-btn">
+                                    <input type="submit" class="btn btn-success btn-to-right" value="Comment!">
+                                </div> 
+                            </form>
+                        </fieldset>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        {% endfor %}
+    </div>
+ {% endblock %}

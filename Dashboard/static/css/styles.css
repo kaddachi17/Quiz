@@ -1,0 +1,71 @@
+* {
+	/*outline: 1px dotted purple;*/
+}
+
+/* Header Styling */
+div.header {
+	border-bottom: 1px solid black;
+}
+
+div.menu {
+	margin: 0px auto;
+	width: 1160px;
+	padding: 20px;
+}
+
+li.move-right {
+	float: right;
+}
+
+li h3{
+	margin: 10px 40px 10px 10px;
+}
+
+/* App specific Styling */
+div.body {
+	margin: 0px auto;
+	width: 1160px;
+	padding: 20px;
+}
+
+div.welcome {
+	padding: 20px;
+	background-color: lightgrey;
+}
+
+.section-header {
+	margin-bottom: 30px;
+}
+
+.section-btn {
+	margin-top: 25px;
+}
+
+.btn-to-right {
+	float: right;
+}
+
+.bottom-row {
+	margin-top: 20px;
+}
+
+fieldset {
+	padding: 20px;
+}
+.message, .comment {
+	border-radius: 5px;
+	padding: 20px;
+}
+.message {
+	border: 1px solid green;
+}
+.comment {
+	border: 1px solid pink;
+}
+textarea.comment, textarea.message {
+	background-color: lightyellow;
+}
+
+.space-above {
+	margin-top: 20px;
+}

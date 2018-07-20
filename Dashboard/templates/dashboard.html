@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}"THE" Dashboard{% endblock %}
+{% block content %}
+	<div class="body row"><!-- TITLE -->
+		<h2>
+			Manage Users
+
+				<a class="btn-to-right" href="/users/new"><button class="btn btn-primary">Add New User</button></a>
+        <a class="btn-to-right" href="/users/show/{{foulan.id}}"><button class="btn btn-primary">show New User</button></a>
+
+		</h2>
+	</div>
+	<div class="body row"><!-- TABLE -->
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Created At</th>
+					<th>User Level</th>
+
+					<th>Actions</th>
+
+				</tr>
+			</thead>
+			<tbody>
+             {% for user in users %}
+				<tr>
+						<td>{{user.id}}</td>
+						<td><a href="/users/show/{{user.id}}">{{ user.first_name }} {{ user.last_name }}</a></td>
+						<td>{{ user.email }}</td>
+						<td>{{ user.created_at }}</td>
+						<td>{% if user.user_level == 9 %}professor{% else %}Normal{% endif %}</td>
+						{% if request.session.user_level == 9 %}
+							<td>
+								<a href="/users/edit/{{user.id}}">Edit</a>
+								<a href="/users/destroy/{{user.id}}">Remove</a>
+							</td>
+						{% endif %}
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Dashboard Login{% endblock %}
+{% block content %}
+    <div class="body row">
+        <div class="hero-unit col-sm-5">
+            <h2 class="section-header">Signin</h2>
+            {% if messages %}
+                <div class="alert alert-danger">
+                    <p>WARNING:</p>
+                    {% for message in messages%}
+                        <p>* {{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <form action="/signin" method="post">
+                {% csrf_token %}
+                <div class="form-group"><!-- EMAIL INPUT -->
+                    <label>Email</label>
+                    <input type="text" name="email" placeholder="Email" class="form-control form-control-lg">
+                </div>
+                <div class="form-group"><!-- PASSWORD INPUT -->
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="Password" class="form-control form-control-lg">
+                </div>
+                <div class="row section-btn"><!-- SUBMIT BUTTON-->
+                    <div class="col-sm-9"></div>
+                    <div class="col-sm-3"><input type="submit" class="btn btn-success" value="Sign In"></div>
+                </div>
+            </form>
+            <a href="{% url 'my_register' %}">Don't have an account? Sign up here!</a>
+        </div>
+    </div>
+{% endblock %}
